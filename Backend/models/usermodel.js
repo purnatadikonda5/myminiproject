@@ -19,11 +19,15 @@ let UserSchema= mongoose.Schema({
 UserSchema.statics.hashPassword= async (password)=>{
    return  await bcrypt.hash(password,10);
 }
-UserSchema.methods.isvalidPassword= async (password)=>{
+UserSchema.methods.isValidPassword= async function(password){
+    // console.log(password,this.password);
    return  await bcrypt.compare(password,this.password);
 }
 UserSchema.methods.generateJwt = function () {
-    return jwt.sign({ email: this.email }, process.env.SECRETE);
+    return jwt.sign(
+        { email: this.email },
+        process.env.SECRETE,
+        {expiresIn: '24h'});
 };
 const User=mongoose.model("user",UserSchema);
 export default User;
