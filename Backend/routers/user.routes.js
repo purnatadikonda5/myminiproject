@@ -18,3 +18,5 @@ router.get("/profile",authmiddleware.authUser,UserController.ProfileController);
 export default router;
 
 router.post("/logout",authmiddleware.authUser,UserController.LogoutController);
+
+router.get("/all",authmiddleware.authUser,UserController.getAllUsersController);

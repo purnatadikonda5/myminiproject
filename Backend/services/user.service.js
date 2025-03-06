@@ -16,3 +16,10 @@ export const CreateUser= async (rr)=>{
     console.log(user);
     return user;
 }
+
+export const getAllUsers = async({UserId})=>{
+    let allusers= await userModel.find({
+        _id: {$ne: UserId}
+    })
+    return allusers;
+}

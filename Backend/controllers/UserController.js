@@ -13,6 +13,7 @@ export const CreateUserController= async (req,res)=>{
         console.log("user created");
         console.log(user);
         let token=  user.generateJwt();
+        delete user._doc.password;
         res.status(201).json({user,token})
     } 
     catch (error) {
@@ -24,6 +25,7 @@ export const CreateUserController= async (req,res)=>{
 export const LoginController=async(req,res)=>{
     let errors= validationResult(req);
     if(!errors.isEmpty()){
+        console.log(errors);
         throw new Error("Login validation failed");
     }
     try {
@@ -37,6 +39,7 @@ export const LoginController=async(req,res)=>{
             return res.status(401).json({error:"invalid credentials"})
         }
         let token=user.generateJwt();
+        delete user._doc.password;
         res.status(201).json({user,token});
     } catch (error) {
         console.error("Error creating user:", error.message);
@@ -61,5 +64,16 @@ export const LogoutController= async function (req,res){
     } catch (error) {
         console.log(error);
         res.status(401).json({error:error.message});
+    }
+}
+
+export const getAllUsersController= async (req,res)=>{
+    try {
+        let loggedInUser= await userModel.findOne({email:req.user.email});
+        let UserId= loggedInUser._id;
+        let allUsers= await userServices.getAllUsers({UserId});
+        return res.status(200).json(allUsers);
+    } catch (error) {
+        res.status(400).json({error:error.message})
     }
 }
