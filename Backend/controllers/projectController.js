@@ -48,13 +48,15 @@ export const addUsertoProject= async (req,res)=>{
         const {projectId,users} =req.body;
         let loggedInUser=await userModel.findOne({email:req.user.email});
         let UserId=loggedInUser._id;
+        console.log(UserId,loggedInUser);
         let newpro= await ProjectServices.addUsertoProject({projectId,users,UserId});
+        console.log(newpro);
         if(!newpro){
             throw new Error("no project found");
         }
         return res.status(200).json(newpro);
     } catch (error) {
-        res.status(400).json({error:error.message});
+        res.status(401).json({error:error.message});
     }
 }
 

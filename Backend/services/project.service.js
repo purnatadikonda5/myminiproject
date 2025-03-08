@@ -61,6 +61,7 @@ export const addUsertoProject= async ({projectId,users,UserId})=>{
     if(!Array.isArray(users) || users.some((user)=>!mongoose.Types.ObjectId.isValid(user))){
         throw new Error("users elements should should be a valid mongoose Ids")
     }
+    console.log("reached");
     UserId=UserId.toString();projectId=projectId.toString();
     console.log(projectId,UserId);
     let newpro= await ProjectModel.findOne({

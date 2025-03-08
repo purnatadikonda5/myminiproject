@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "../configs/axios";
 import React,{useState,useContext} from 'react'
 import {UserContext} from '../contexts/user.context'
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5Abi5jb20iLCJpYXQiOjE3NDE0NDM5MzIsImV4cCI6MTc0MTUzMDMzMn0.X4oqGOSUsvYQTNZo3GGKKHIw9domqM3aRU29tYIbuOM
 export default function LoginPage() {
   let [email,setemail]=useState('');
   let [password,setpassword]=useState('');
@@ -13,6 +13,7 @@ export default function LoginPage() {
     axios.post("/users/login",{
       email,password
     }).then((res)=>{
+      print(res.data.token)
       localStorage.setItem('token',res.data.token)
       setUser(res.data.user);
       console.log(res.data)

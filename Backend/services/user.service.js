@@ -21,5 +21,6 @@ export const getAllUsers = async({UserId})=>{
     let allusers= await userModel.find({
         _id: {$ne: UserId}
     })
+    // console.log(allusers);
     return allusers;
 }
