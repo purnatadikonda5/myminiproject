@@ -13,7 +13,7 @@ export default function LoginPage() {
     axios.post("/users/login",{
       email,password
     }).then((res)=>{
-      print(res.data.token)
+      // print(res.data.token)
       localStorage.setItem('token',res.data.token)
       setUser(res.data.user);
       console.log(res.data)
